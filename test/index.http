@@ -1,3 +1,13 @@
+POST http://localhost:1995/set-key
+Content-Type: application/json
+
+{
+  "key": "name",
+  "value" :"zjk"
+}
+
+
+###
 # curl 'http://localhost:1995/test?a=1&b=2'
 #  -H 'Connection: keep-alive'
 #  -H 'Cache-Control: max-age=0'
