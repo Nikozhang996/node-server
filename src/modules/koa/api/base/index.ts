@@ -4,11 +4,11 @@ import redis from "redis";
 const router = new Router();
 const redisClient = redis.createClient();
 
-router.get("/get-key", async function (ctx) {
+router.get("/get-key", async (ctx) => {
   const { name } = ctx.query;
   if (typeof name === "string") {
     console.log(name);
-    redisClient.get(name, function (err, reply) {
+    redisClient.get(name, (err, reply) => {
       if (!err) {
         console.log(reply);
         ctx.body = reply;
@@ -18,10 +18,10 @@ router.get("/get-key", async function (ctx) {
     ctx.body = "资源不存在";
   }
 });
-router.post("/set-key", async function (ctx, next) {
+router.post("/set-key", async (ctx, next) => {
   const { key, value } = ctx.request.body;
 
-  redisClient.set(key, value, function (err, reply) {
+  redisClient.set(key, value, (err, reply) => {
     if (!err) {
       ctx.body = { code: 200, message: reply };
       next();
@@ -29,11 +29,11 @@ router.post("/set-key", async function (ctx, next) {
   });
   ctx.body = { code: 200, message: 'success' };
 });
-router.get("/show-list", async function (ctx) {
+router.get("/show-list", async (ctx) => {
   ctx.body = {};
 });
 
-router.get("/test", async function (ctx) {
+router.get("/test", async (ctx) => {
   console.log(`${ctx.method} - ${ctx.url}`);
 
   ctx.body = {
@@ -42,7 +42,7 @@ router.get("/test", async function (ctx) {
   };
 });
 
-redisClient.on("error", function (error) {
+redisClient.on("error", (error) => {
   console.error(error);
 });
 
