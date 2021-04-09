@@ -4,7 +4,7 @@
   "description": "node server",
   "main": "index.js",
   "scripts": {
-    "debugger": "ts-node --inspect ./src/index.ts",
+    "debugger": "node --inspect ./src/test.js",
     "start": "tsc && node dist/index.js",
     "dev": "nodemon --watch src/**/* -e ts,tsx --exec ts-node ./src/index.ts"
   },
