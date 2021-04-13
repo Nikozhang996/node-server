@@ -2,4 +2,4 @@
 
 import createExpressApp from "./modules/express";
 
-createExpressApp()
+createExpressApp();
