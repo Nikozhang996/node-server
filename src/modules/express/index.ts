@@ -1,8 +1,8 @@
 import express, { Express, Request, Response } from "express";
 
 const CONFIG = {
-  port:4000
-}
+  port: 4000,
+};
 
 function createExpressApp(): Express {
   const app: Express = express();
@@ -16,7 +16,7 @@ function createExpressApp(): Express {
   });
 
   app.listen(CONFIG.port, () => {
-    console.log(`express server is running port: ${CONFIG.port}`);
+    console.log(`express server is running http://localhost:${CONFIG.port}`);
   });
 
   return app;

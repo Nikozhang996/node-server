@@ -2,10 +2,10 @@ import Koa from "koa";
 import logger from "koa-logger";
 import bodyParser from "koa-bodyparser";
 
-const onerror = require("koa-onerror");
-
 // router
 import router from "./api/base";
+
+const onerror = require("koa-onerror");
 
 const CONFIG = {
   port: 3000,
