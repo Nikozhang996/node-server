@@ -1,0 +1,18 @@
+GET http://localhost:3000/hello?name=vladimir
+Accept: application/json
+
+###
+GET http://localhost:3000/get-key?name=zjk
+Accept: application/json
+
+###
+
+
+POST http://localhost:3000/set-key
+Content-Type: application/json
+
+{
+  "key": "name",
+  "value" :"zjk"
+}
+
