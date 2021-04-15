@@ -1,19 +1,20 @@
-import express, { Express, Request, Response } from "express";
+import express, { Application } from "express";
+import bodyParser from "body-parser";
+import redisRouter from "./router/redis";
 
 const CONFIG = {
   port: 4000,
 };
 
-function createExpressApp(): Express {
-  const app: Express = express();
+function createExpressApp(): Application {
+  const app: Application = express();
+  // 解析 application/json
+  app.use(bodyParser.json());
+  // 解析 application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded());
 
-  app.get("/hello", (req: Request, res: Response) => {
-    console.log(req.ip);
-    const first = "hello";
-    const last = "world";
-
-    res.end(`${first} ${last}`);
-  });
+  // redis router
+  app.use("/redis", redisRouter);
 
   app.listen(CONFIG.port, () => {
     console.log(`express server is running http://localhost:${CONFIG.port}`);
