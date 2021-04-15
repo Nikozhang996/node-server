@@ -5,24 +5,27 @@ import bodyParser from "koa-bodyparser";
 // router
 import router from "./api/base";
 
-const app = new Koa();
 const onerror = require("koa-onerror");
 
 const CONFIG = {
-  port: 1995,
+  port: 3000,
 };
 
-app.use(logger());
-onerror(app);
-app.use(bodyParser());
-app.use(router.routes()).use(router.allowedMethods());
+export default function createKoaApp(options = {}) {
+  const OPTIONS = { ...options, ...CONFIG };
 
-app.on("error", (err, ctx) => {
-  console.error("server error !!!!!!!!!!!!!", err, ctx);
-});
+  const app = new Koa();
 
-app.listen(CONFIG.port, () => {
-  console.log(`server is running at http://localhost:${CONFIG.port}`);
-});
+  app.use(logger());
+  onerror(app);
+  app.use(bodyParser());
+  app.use(router.routes()).use(router.allowedMethods());
 
-export default app;
+  app.on("error", (err, ctx) => {
+    console.error("server error !!!!!!!!!!!!!", err, ctx);
+  });
+
+  app.listen(CONFIG.port, () => {
+    console.log(`koa server is running at http://localhost:${OPTIONS.port}`);
+  });
+}
