@@ -1,0 +1,49 @@
+#
+# ElasticSearch最全详细使用教程：入门、索引管理、映射详解https://cloud.tencent.com/developer/article/1547867
+#
+
+# 1. 查看集群的健康状况
+GET http://localhost:9200/_cat
+Accept: application/json
+###
+
+# 说明：v是用来要求在结果中返回表头
+GET http://localhost:9200/_cat/health?v
+Accept: application/json
+###
+
+# 查看所有索引
+http://localhost:9200/_cat/indices?v
+###
+
+
+GET http://localhost:9200/megacorp/_search
+###
+
+# 获取指定索引
+GET http://localhost:9200/megacorp/
+Accept: application/json
+
+### 新建一个megacorp索引，类型为employee，1为ID
+PUT http://localhost:9200/megacorp/employee/1?pretty
+Content-Type: application/json
+
+{
+  "first_name" : "Niko",
+  "last_name" :  "Zhang",
+  "age" :        25,
+  "about" :      "I love to go rock climbing",
+  "interests": [ "photograph", "code" ]
+}
+
+###
+
+### 删除索引
+DELETE http://localhost:9200/megacorp/employee/1
+###
+
+
+###
+GET http://localhost:9200/_count?pretty -d
+###
+
