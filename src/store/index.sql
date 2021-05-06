@@ -1,0 +1,14 @@
+SELECT DISTINCT *
+from employees;
+
+
+
+
+
+
+
+
+
+
+
+
