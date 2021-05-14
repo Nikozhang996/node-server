@@ -12,22 +12,35 @@
   9、!=与<>等值
   10、between and范围检查
 
+ant or not in
+
+like模糊匹配, %不定词, _限定词, []方括号
+
+计算属性、别名,contect
+
+三、函数
+    1、字符串函数
+    2、日期时间函数
+    3、Number函数
+四、汇总数据
+
+五、分组数据
+group by
+having
+
+六、子查询
+
+七、联结
+
+八、高级联结
+1、form a,b多张表
 */
 
-use sql_store;
-
-select customer_id, first_name, last_name
+# use sql_store;
+select o.customer_id, customers.first_name, o.order_id, count(o.order_id) as pro_count
 from customers
-where customer_id between 4 and 8;
-
-
-
-
-
-
-
-
-
-
+         join orders o on customers.customer_id = o.customer_id
+         join order_items oi on o.order_id = oi.order_id
+group by o.customer_id;
 
 
