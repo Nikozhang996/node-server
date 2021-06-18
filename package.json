@@ -57,6 +57,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-config-prettify-base": "^0.1.8",
     "husky": "^5.2.0",
+    "jest": "^27.0.4",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",

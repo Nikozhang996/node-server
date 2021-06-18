@@ -11,16 +11,16 @@
   8、可以按多个列进行排序，当A列值相同时取B列进行排序
   9、!=与<>等值
   10、between and范围检查
-
+  in限定范围
 */
 
 use sql_store;
 
-select customer_id, first_name, last_name
-from customers
-where customer_id between 4 and 8;
-
-
+show create table customers
+# select *
+# from customers
+# where city != 'guangzhou'
+#
 
 
 
