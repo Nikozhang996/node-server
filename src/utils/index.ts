@@ -1,6 +1,7 @@
 export function chineseTranslateInitials(word: string): string {
   if (!String.prototype.localeCompare) return word;
   if (word.length > 1) return word;
+  if (!word.match(/[\u4e00-\u9fa5]/g)) return word;
   if (typeof word !== "string") return word;
 
   const zm = "abcdefghjklmnopqrstwxyz_".split("");
@@ -19,7 +20,24 @@ export function chineseTranslateInitials(word: string): string {
   return word.toUpperCase();
 }
 
-export function matchAndTransString(value: string): string {
+interface IOptions {
+  filterDoubleByte?: boolean;
+}
+
+export function matchAndTransString(
+  value: string,
+  options: IOptions = {}
+): string {
+  if (typeof value !== "string") return value;
+  const { filterDoubleByte } = options;
+  if (filterDoubleByte === true) {
+    const reg = /[\u4e00-\u9fa5_a-zA-Z0-9]/g;
+    let matchValue = value.match(reg);
+    if (Array.isArray(matchValue)) {
+      value = matchValue.join("");
+    }
+  }
+
   return value.replace(/[\u4e00-\u9fa5]/g, function (item: string) {
     return chineseTranslateInitials(item);
   });
