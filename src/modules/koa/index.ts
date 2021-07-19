@@ -3,7 +3,8 @@ import logger from "koa-logger";
 import bodyParser from "koa-bodyparser";
 
 // router
-import router from "./api/base";
+// import router from "./api/base";
+import es from "./api/es";
 
 const onerror = require("koa-onerror");
 
@@ -19,7 +20,7 @@ export default function createKoaApp(options = {}) {
   app.use(logger());
   onerror(app);
   app.use(bodyParser());
-  app.use(router.routes()).use(router.allowedMethods());
+  app.use(es.routes()).use(es.allowedMethods());
 
   app.on("error", (err, ctx) => {
     console.error("server error !!!!!!!!!!!!!", err, ctx);
