@@ -45,4 +45,3 @@ from customers
          join order_items oi on o.order_id = oi.order_id
 group by o.customer_id;
 
-
