@@ -1,21 +1,16 @@
+/*
+* https://xiejiahe.com/blog/detail/5a74106674aaca06bbdb7d25
+*/
 import { Router } from "express";
-import axios from "axios";
 
 const router = Router();
 
-router.get("/template", async function(req, res) {
-  const { eliteId } = req.query;
-  const { status, data } = await axios.get("http://172.18.129.64:9402/coupon/api/jd/jd.union.open.goods.jingfen.query", {
-    params: {
-      eliteId: eliteId,
-      p: "gBDV8c4l3PywBG/ZHuBtlsaSuGI9L6Fs8R3CMgiAwcs=",
-      outSkuIds: "10030028874661,100022672084"
-    }
+router.get("/template", async function(_req, res) {
+  res.render("test", {
+    title: "VLADIMIR",
+    width: 340,
+    height: 264
   });
-  if (status === 200) {
-    res.render("index", data.data);
-  }
 });
-
 
 export default router;
