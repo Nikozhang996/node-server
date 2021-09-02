@@ -128,33 +128,42 @@
             </div>
         </div>
         <div id="coupon1" class="content">
-            <div class="shop-info" style="margin:61px 0 0 17px;overflow: hidden">
+            <div class="shop-info" style="margin:61px 0 0 17px;">
                 <div id="imageBox" class="shop-img-box" style="float:left;"></div>
                 <div class="shop-detail" style="float:left; margin:12px 0 0 6px; width: 192px">
                     <div id="shopTitle" class="shop-title text-beyond-hidden"></div>
                     <div class="price-desc" style="margin-top: 8px">
                         <div class="price-group" style="float:left;color:#F82929;">
-                            <span id="preferentialPrice" style="font-size: 18px"></span> <span>元券</span>
+                            <span id="couponAmount" style="font-size: 18px"></span> <span>元券</span>
                         </div>
                         <div style="float:left;border-radius: 2px;border: 1px solid #F82929;color: #F82929;padding: 2px 4px;margin:2px 0 0 4px">
-                            满<span>80</span>可用
+                            满<span id="useQuota"></span>可用
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div id="coupon2" class="content">
-            <div class="shop-info">
-                <div id="imageBox" class="shop-img-box"></div>
-                <div class="shop-detail">
-                    <div id="shopTitle" class="shop-title text-multiline-hidden"></div>
-                    <div class="price-desc">
-                        <div class="price-group">
-                            <span style="color: #FE5385">￥<span id="preferentialPrice"></span></span>
+            <div class="shop-info" style="margin:44px 0 0 14px;">
+                <div id="imageBox" class="shop-img-box" style="float:left;"></div>
+                <div class="shop-detail" style="float:left; margin:12px 0 0 6px; width: 232px">
+                    <div id="shopTitle" class="shop-title text-beyond-hidden"></div>
+                    <div class="price-desc" style="margin-top: 8px">
+                        <div class="price-group" style="float:left;color:#F82929;">
+                            <span>券后</span> <span id="preferentialPrice" style="font-size: 18px"></span>
                             <span style="color: #999999" class="original-price">￥<del id="originalPrice"></del></span>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="coupon-info" style="position: relative">
+                <div style="margin: 20px 0 0 48px;">
+                    <div style="color: #ffffff;">
+                        <span>￥</span><span id="couponAmount" style="font-size: 30px;line-height: 30px"></span>
+                    </div>
+                    <div>满<span id="useQuota"></span>可用</div>
+                </div>
+                <div style="position: absolute;right: 50px;top:26px;">领取之日起<span id="validDate">30</span>天有效</div>
             </div>
         </div>
     </div>
@@ -215,66 +224,73 @@
   var $default2 = document.getElementById("default2");
   var $coupon1 = document.getElementById("coupon1");
   var $coupon2 = document.getElementById("coupon2");
-  var $preferentialPrice = document.getElementById("preferentialPrice");
-  var $originalPrice = document.getElementById("originalPrice");
-  var $submitButton = document.getElementById("submitButton");
-  var isUseCoupon = true;
-  var style = 1;
 
+
+  var couponData = data.coupon_list && data.coupon_list[0];
+  var click_url = couponData.click_url || data.material_url || "";
 
   var img = new Image();
   img.onload = function() {
-    var click_url = data.coupon_list && data.coupon_list[0] && data.coupon_list[0].click_url || data.material_url || "";
     if (!click_url) {
-      // return failCb("click_url_fail");
+      return failCb("click_url_fail");
     } else {
-      // renderClickArea(click_url);
-      // successCb();
+      renderClickArea(click_url);
+      successCb();
     }
   };
   img.onerror = function() {
-    // failCb("image_fail");
+    failCb("image_fail");
   };
   img.src = data.pict_url;
   img.className = "shop-img";
   img.id = "shopImg";
 
-  if (isUseCoupon === true && style === 1) {
-    $coupon1.style.display = "block";
-    $coupon1.style.width = couponConfig1.width + "px";
-    $coupon1.style.height = couponConfig1.height + "px";
-    $coupon1.style.backgroundImage = "url(" + couponConfig1.backgroundUrl + ")";
-    $coupon1.querySelector("#imageBox").appendChild(img);
-    $coupon1.querySelector("#shopTitle").innerText = data.title;
-    $coupon1.querySelector("#preferentialPrice").innerText = data.price;
-    $coupon1.querySelector("#originalPrice").innerText = data.lowest_price;
-  } else if (isUseCoupon === true && style === 2) {
-    $coupon2.style.display = "block";
-    $coupon2.style.width = couponConfig2.width + "px";
-    $coupon2.style.height = couponConfig2.height + "px";
-    $coupon2.style.backgroundImage = "url(" + couponConfig2.backgroundUrl + ")";
-    $coupon2.querySelector("#imageBox").appendChild(img);
-    $coupon2.querySelector("#shopTitle").innerText = data.title;
-    $coupon2.querySelector("#preferentialPrice").innerText = data.price;
-    $coupon2.querySelector("#originalPrice").innerText = data.lowest_price;
-  } else if (isUseCoupon === false && style === 1) {
-    $default1.style.display = "block";
-    $default1.style.width = couponConfig1.width + "px";
-    $default1.style.height = couponConfig1.height + "px";
-    $default1.style.backgroundImage = "url(" + couponConfig1.backgroundUrl + ")";
-    $default1.querySelector("#imageBox").appendChild(img);
-    $default1.querySelector("#shopTitle").innerText = data.title;
-    $default1.querySelector("#preferentialPrice").innerText = data.price;
-    $default1.querySelector("#originalPrice").innerText = data.lowest_price;
-  } else if (isUseCoupon === false && style === 2) {
-    $default2.style.display = "block";
-    $default2.style.width = defaultConfig2.width + "px";
-    $default2.style.height = defaultConfig2.height + "px";
-    $default2.style.backgroundImage = "url(" + defaultConfig2.backgroundUrl + ")";
-    $default2.querySelector("#imageBox").appendChild(img);
-    $default2.querySelector("#shopTitle").innerText = data.title;
-    $default2.querySelector("#preferentialPrice").innerText = data.price;
-    $default2.querySelector("#originalPrice").innerText = data.lowest_price;
+  handleDOMInnerText(data, couponData);
+
+  function handleDOMInnerText(shopData, couponData) {
+    var style = 1;
+    var isUseCoupon = false;
+    // var isUseCoupon = shopData.coupon_list.length > 0;
+    if (isUseCoupon === true && style === 1) {
+      $coupon1.style.display = "block";
+      $coupon1.style.width = couponConfig1.width + "px";
+      $coupon1.style.height = couponConfig1.height + "px";
+      $coupon1.style.backgroundImage = "url(" + couponConfig1.backgroundUrl + ")";
+      $coupon1.querySelector("#imageBox").appendChild(img);
+      $coupon1.querySelector("#shopTitle").innerText = shopData.title;
+      $coupon1.querySelector("#couponAmount").innerText = couponData.discount;
+      $coupon1.querySelector("#useQuota").innerText = couponData.quota;
+    } else if (isUseCoupon === true && style === 2) {
+      $coupon2.style.display = "block";
+      $coupon2.style.width = couponConfig2.width + "px";
+      $coupon2.style.height = couponConfig2.height + "px";
+      $coupon2.style.backgroundImage = "url(" + couponConfig2.backgroundUrl + ")";
+      $coupon2.querySelector("#imageBox").appendChild(img);
+      $coupon2.querySelector("#shopTitle").innerText = shopData.title;
+      $coupon2.querySelector("#preferentialPrice").innerText = shopData.price;
+      $coupon2.querySelector("#originalPrice").innerText = shopData.lowest_price;
+      $coupon2.querySelector("#couponAmount").innerText = couponData.discount;
+      $coupon2.querySelector("#useQuota").innerText = couponData.quota;
+      $coupon2.querySelector("#validDate").innerText = Math.floor((couponData.use_end_time - couponData.use_start_time) / 86400000);
+    } else if (isUseCoupon === false && style === 1) {
+      $default1.style.display = "block";
+      $default1.style.width = defaultConfig1.width + "px";
+      $default1.style.height = defaultConfig1.height + "px";
+      $default1.style.backgroundImage = "url(" + defaultConfig1.backgroundUrl + ")";
+      $default1.querySelector("#imageBox").appendChild(img);
+      $default1.querySelector("#shopTitle").innerText = shopData.title;
+      $default1.querySelector("#preferentialPrice").innerText = shopData.price;
+      $default1.querySelector("#originalPrice").innerText = shopData.lowest_price;
+    } else if (isUseCoupon === false && style === 2) {
+      $default2.style.display = "block";
+      $default2.style.width = defaultConfig2.width + "px";
+      $default2.style.height = defaultConfig2.height + "px";
+      $default2.style.backgroundImage = "url(" + defaultConfig2.backgroundUrl + ")";
+      $default2.querySelector("#imageBox").appendChild(img);
+      $default2.querySelector("#shopTitle").innerText = shopData.title;
+      $default2.querySelector("#preferentialPrice").innerText = shopData.price;
+      $default2.querySelector("#originalPrice").innerText = shopData.lowest_price;
+    }
   }
 </script>
 </html>
