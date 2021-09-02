@@ -110,7 +110,6 @@
                     </div>
                 </div>
             </div>
-            <div style="color: #ffffff;margin-top: 34px;font-size: 14px;" class="text-align-center">立即购买></div>
         </div>
         <div id="default2" class="content">
             <div class="shop-info horizontally-centered-by-margin" style="width:310px;margin-top: 44px">
@@ -127,23 +126,19 @@
                     </div>
                 </div>
             </div>
-            <div style="color: #ffffff;margin-top: 22px;margin-left: 34px;font-size: 14px;">
-                立即购买>
-            </div>
         </div>
         <div id="coupon1" class="content">
-            <div class="shop-info">
-                <div id="imageBox" class="shop-img-box"></div>
-                <div class="shop-detail">
-                    <div id="shopTitle" class="shop-title"></div>
-                    <div class="price-desc">
-                        <div class="price-group">
-                            <span style="color: #FE5385">￥<span id="preferentialPrice"></span></span>
-                            <span style="color: #999999" class="original-price">￥<del id="originalPrice"></del></span>
+            <div class="shop-info" style="margin:61px 0 0 17px;overflow: hidden">
+                <div id="imageBox" class="shop-img-box" style="float:left;"></div>
+                <div class="shop-detail" style="float:left; margin:12px 0 0 6px; width: 192px">
+                    <div id="shopTitle" class="shop-title text-beyond-hidden"></div>
+                    <div class="price-desc" style="margin-top: 8px">
+                        <div class="price-group" style="float:left;color:#F82929;">
+                            <span id="preferentialPrice" style="font-size: 18px"></span> <span>元券</span>
                         </div>
-                        <span class="sales">
-                        热销 <span id="shopSales"></span>
-                    </span>
+                        <div style="float:left;border-radius: 2px;border: 1px solid #F82929;color: #F82929;padding: 2px 4px;margin:2px 0 0 4px">
+                            满<span>80</span>可用
+                        </div>
                     </div>
                 </div>
             </div>
@@ -152,21 +147,17 @@
             <div class="shop-info">
                 <div id="imageBox" class="shop-img-box"></div>
                 <div class="shop-detail">
-                    <div id="shopTitle" class="shop-title"></div>
+                    <div id="shopTitle" class="shop-title text-multiline-hidden"></div>
                     <div class="price-desc">
                         <div class="price-group">
                             <span style="color: #FE5385">￥<span id="preferentialPrice"></span></span>
                             <span style="color: #999999" class="original-price">￥<del id="originalPrice"></del></span>
                         </div>
-                        <span class="sales">
-                        热销 <span id="shopSales"></span>
-                    </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <span id="close_instead" class="close-instead">关闭</span>
 </div>
 </body>
 <script>
@@ -253,11 +244,19 @@
     $coupon1.style.width = couponConfig1.width + "px";
     $coupon1.style.height = couponConfig1.height + "px";
     $coupon1.style.backgroundImage = "url(" + couponConfig1.backgroundUrl + ")";
+    $coupon1.querySelector("#imageBox").appendChild(img);
+    $coupon1.querySelector("#shopTitle").innerText = data.title;
+    $coupon1.querySelector("#preferentialPrice").innerText = data.price;
+    $coupon1.querySelector("#originalPrice").innerText = data.lowest_price;
   } else if (isUseCoupon === true && style === 2) {
     $coupon2.style.display = "block";
-    $coupon2.style.width = couponConfig1.width + "px";
-    $coupon2.style.height = couponConfig1.height + "px";
-    $coupon2.style.backgroundImage = "url(" + couponConfig1.backgroundUrl + ")";
+    $coupon2.style.width = couponConfig2.width + "px";
+    $coupon2.style.height = couponConfig2.height + "px";
+    $coupon2.style.backgroundImage = "url(" + couponConfig2.backgroundUrl + ")";
+    $coupon2.querySelector("#imageBox").appendChild(img);
+    $coupon2.querySelector("#shopTitle").innerText = data.title;
+    $coupon2.querySelector("#preferentialPrice").innerText = data.price;
+    $coupon2.querySelector("#originalPrice").innerText = data.lowest_price;
   } else if (isUseCoupon === false && style === 1) {
     $default1.style.display = "block";
     $default1.style.width = couponConfig1.width + "px";
